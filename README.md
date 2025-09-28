@@ -47,38 +47,60 @@ requirements.txt          # Dependencias de Python necesarias
       ollama serve &
       ollama pull deepseek-r1:32b #(si se corre localmente solo instalar la version 14b no la 32b)
       ```
+      **NOTA:** Es muy importante que cada vez que se modifique las variables de entorno de ollama, el servidor de apague y se vuelva a servir (ollama serve &). Para apagarlo basta correr.
+      ```bash
+     pkill ollama
+     ```
    ###  Ejemplos de uso:
 
    - run_completion.py: realiza la completacion/contextualizacion de documentos.
         ```bash
-        python3 run_completion.py
-       --rut-list-path  #path al txt con ruts a preocesar. es un rut por linea
-        --batch-size 200 #batch de ruts a procesar en una iteracion
-       --llm-model deepseek-r1:14b #modelo llm a usar. si se tiene gpu correr deepseek-r1:32b
-       --llm-temperature-toContext  0.25 #temperatura del llm. no elegir algo superior a 0.2
-       --max-docs-per-rut 5 #numero maximo de documentos de ventas a considerar por rut
-       --inner_workers 5  #numero de llamadas en paralelo intra-rut  (corre en paralelo los textos asociados a un rut)
-       --outer_workers  15  #numero de llamadas en paralelo inter-rut (corre en paralelo multiples rut)
-        ```  
-       - otros argumentos posibles de run_completion.py:
-          ```bash
-           --solo-un-rubro #arg. de tipo store true. si NO se agrega, se consideran todos los rubros de un rut en el SII y boletas, sino, se considera 1 solo
-           --new-bucket-data # arg. de tipo store true. si no se agrega, los documentos de un rut se obtiene del documento textos_etiquetas_NEW_code.txt. Si se agrega, el codigo descarga los datos directamente desde la carpeta asociada al rut en el bucket. 
-           --tipo_muestreo # tipo de muestreo a realizar sobre los documenots. por defecto es "aleatorio".
-          ```
+        python3 run_completion.py `
+        --rut-list-path "C:\Users\mariola_maxxa\Desktop\Modelo_Actividad_Economica\ruts_prueba.txt" `
+        --batch-size 200 `
+        --llm-model deepseek-r1:14b `
+        --llm-temperature-toContext 0.25 `
+        --max-docs-per-rut 5 `
+        --inner_workers 5 `
+        --outer_workers 15
+        ```
+       - Argumentos de run_completion.py:
+         ```bash
+         --rut-list-path  #path al txt con ruts a preocesar. es un rut por linea
+         --batch-size 200 #batch de ruts a procesar en una iteracion
+         --llm-model deepseek-r1:14b #modelo llm a usar. si se tiene gpu correr deepseek-r1:32b
+         --llm-temperature-toContext  0.25 #temperatura del llm. no elegir algo superior a 0.2
+         --max-docs-per-rut 5 #numero maximo de documentos de ventas a considerar por rut
+         --inner_workers 5  #numero de llamadas en paralelo intra-rut  (corre en paralelo los textos asociados a un rut)
+         --outer_workers  15  #numero de llamadas en paralelo inter-rut (corre en paralelo multiples rut)
+         --solo-un-rubro #arg. de tipo store true. si NO se agrega, se consideran todos los rubros de un rut en el SII y boletas, sino, se considera 1 solo
+         --new-bucket-data # arg. de tipo store true. si no se agrega, los documentos de un rut se obtiene del documento textos_etiquetas_NEW_code.txt. Si se agrega, el codigo descarga los datos directamente desde la carpeta asociada al rut en el bucket. 
+         --tipo_muestreo # tipo de muestreo a realizar sobre los documenots. por defecto es "aleatorio".
+         ```
         
    - clasificacion.py: realiza la asignacion de un rubro. El rut debe haber pasado por el paso previo (run_comlpetion.py)
-
         ```bash
-        python clasificador.py
-       --input-zip results_2.zip #
-       --output-dir results_clas
-       --llm-model deepseek-r1:32b
-       --temperature 0.25
-        --rut-list lote_ruts_restantes_1.txt
-       --batch-size 15
+        python clasificador.py `
+       --input-path results `
+       --output-dir results_clas `
+       --llm-model deepseek-r1:14b `
+       --temperature 0.25 `
+        --rut-list "C:\Users\mariola_maxxa\Desktop\Modelo_Actividad_Economica\ruts_prueba.txt" `
+       --batch-size 15 `
        --workers 20
-         ```    
+        ```
+        
+       - Argumentos de clasificacion.py:
+        ```bash
+       --input-path # . zip que contiene .pkl con el json obtenido en  run_completion.py
+       --output-dir results_clas ` #nombre de la carpeta donde se guardaran los resultados finales
+       --llm-model deepseek-r1:14b `  #nombre del modelo. Local 14b y nube 32b 
+       --temperature 0.25 `  #temperatura del llm. no elegir algo superior a 0.2
+        --rut-list "C:\Users\mariola_maxxa\Desktop\Modelo_Actividad_Economica\ruts_prueba.txt" `
+       --batch-size 15 `  #batch de ruts a procesar en una iteracion
+       --workers 20 #numero de llamadas en paralelo a ollama
+        ```
+        
   ## 2.2 Modelo api
    -  Instalar API de OpenAI
        ```bash
@@ -104,47 +126,71 @@ requirements.txt          # Dependencias de Python necesarias
      ```     
 --- 
 # 3. Pasos Para Correr en la nube (NodeShift)
+### 1. Generar Claves SSH en Windows con PuTTYgen. Se deben crear 2 claves, una irá para Github y otra para la nube (Nodeshift)
+1. Abre PuTTYgen. Si no lo tienes, descárgalo e instálalo junto con PuTTY desde [putty.org](https://www.putty.org/).
+2. Genera un nuevo par de claves.
+3. En el menú **Type of key to generate**, selecciona **RSA**.
+4. En **Number of bits in a generated key**, usa **4096** para una mayor seguridad.
+5. Haz clic en **Generate** y mueve el ratón aleatoriamente sobre la ventana para crear la clave.
+6. Haz clic en **Save private key** para guardar tu clave privada.
+7. Asigna una frase de contraseña (**passphrase**) fuerte cuando se te pida.  
+8. Guarda el archivo con una extensión `.ppk` en un lugar seguro (por ejemplo, `C:\Users\TuUsuario\.ssh\`).
+9. Copia tu clave pública: en la ventana de PuTTYgen, el texto que aparece en el cuadro de arriba, que comienza con `ssh-rsa` y termina con tu dirección de correo electrónico, es tu clave pública.
+10. Copia todo ese texto al portapapeles.
 
-- Preparacion_entorno_local:
-  - Python 3.10+ y pip.
-  - Docker Desktop para construir y gestionar imágenes Docker.
-  - Git y Git Bash para gestionar el código y usar comandos SSH.
-  - PuTTYgen para generar claves SSH (ppk y OpenSSH). **Crear dos keys SSH**. Una irá asociada a Github y la otra a la nube (Nodeshift).
-  - Cuentas activas en GitHub y Docker Hub. Luego, se debe subir a Docker Hub la imagen docker creada del proyecto. 
+### 2. Agregar la Clave Pública a GitHub
+1. Inicia sesión en GitHub.
+2. Haz clic en tu foto de perfil (esquina superior derecha) y selecciona **Settings**.
+3. En el menú de la izquierda, ve a **SSH and GPG keys**.
+4. Haz clic en el botón **New SSH key** o **Add SSH key**.
+5. Dale un título descriptivo a tu clave (por ejemplo, "clave modelo act eco").
+6. En el campo **Key**, pega el texto de la clave pública que copiaste de PuTTYgen.
+7. Haz clic en **Add SSH key**.
 
-### Despliegue VM NodeShift:
+**NOTA:** En Github se obtendrá un token a partir de lo anterior. Esto es la clave y usuario respectivo que se pedira cuando se clone el repo en la VM de la nube.
+
+### 3. Agregar la otra Clave Pública a Nodeshift (basta agregar en Add new SSH key).
+
+### 4. Se debe crear una cuenta de Docker hub y luego subir la imagen docker.
+
+### 5. Despliegue VM NodeShift:
   On start script de NodeShift: 
 
     #!/bin/bash
     export OLLAMA_NUM_PARALLEL=20  #PARAMETRO IMPORTANTE QUE CONTROLA CUANTAS LLAMADAS EN PARALELO ACEPTA OLLAMA. 
     export OLLAMA_FLASH_ATTENTION=true
     apt update && apt install zip -y 
- 
+
+    curl -fsSL https://ollama.com/install.sh | sh-
+    ollama serve &
+    ollama pull deepseek-r1:32b #(si se corre localmente solo instalar la version 14b no la 32b)
+      
     echo "Iniciando servidor Ollama..."
     nohup ollama serve --n-gpu-layers -1 > /root/ollama.log 2>&1 &
     sleep 30
 
     echo "Clonando repositorio de código..."
-    git clone --branch feature/paralelizacion --single-branch https://github.com/matiasaar/LLM_MODEL.git /opt/LLM_MODEL
+    git clone https://github.com/matiasaar/actividad_economica.git /opt/LLM_MODEL
     cd /opt/LLM_MODEL
 
     echo "Descargando modelos LLM..."
     ollama pull deepseek-r1:32b
 
-    echo "Instalando dependencias Python..."
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
 
-    echo "Script de inicio completado. Transferir archivos de datos grandes vía SCP/SFTP."
-    sleep infinity
+**NOTA:** Los pasos anteriores se pueden ingresar en On start script de Nodeshift o directamente en el PowerShell o CMD de la VM creada en NodeShift.
 
-NOTA: Los pasos anteriores se pueden ingresar en On start script de Nodeshift o directamente en el PowerShell o CMD de la VM creada en NodeShift.
-
-  Transferir datos a la VM usando SCP:
-  
-    ```bash
-    scp -P <puerto_ssh> -i <ruta_a_tu_clave_privada> <ruta_a_archivo_local> root@<ip_de_tu_vm>:/opt/LLM_MODEL/data_files/
-    ```
+  Transferir datos a la VM usando SCP (se ejecuta de manera local):
+   ```bash
+    scp -P <puerto_ssh> -i <ruta_a_tu_clave_privada_ssh> <ruta_a_archivo_local> root@<ip_de_tu_vm>:/opt/LLM_MODEL/data_files/
+   ```
     
-  Transferir datos desde la VM al entorno local usano SCP:
+  Comprimir archivos para enviar desde la VM al entorno local (se ejecuta en la nube):
+
+  ```bash
+    zip -r <ruta_donde_se_crea_el_zip> <ruta_al_archivo_a_transferir> #ej:zip -r /opt/LLM_MODEL/results.zip /opt/LLM_MODEL/results
+   ```
+
+ Transferir desde la VM al entorno local (se ejecuta de manera local):
+ ```bash
+ scp -P  <puerto_ssh> -i <ruta_a_tu_clave_privada_ssh> -r  root@<ip_de_tu_vm>:<ruta_al_archivo_a_transferir> <ruta_entorno_local_donde_copia_archivo> 
+ ```
