@@ -1,0 +1,10 @@
+numpy
+pandas
+sqlalchemy # Solo si realmente lo estás usando, de lo contrario, elimínalo.
+ollama
+langchain
+langchain-community # Importante para las herramientas como DuckDuckGoSearchRun
+chromadb
+pyarrow
+openpyxl
+tqdm # Para las barras de progreso

@@ -1,0 +1,32 @@
+# Build and Release Folders
+bin-debug/
+bin-release/
+[Oo]bj/
+[Bb]in/
+
+# Other files and folders
+.settings/
+
+# Executables
+*.swf
+*.air
+*.ipa
+*.apk
+
+ 
+# el siguiente archivo no se debe cargar a github por temas de seguridad de info (a su vez su tamaño tampoco lo permite)
+data_files/textos_etiquetas_NEW_code.txt
+
+#variables de entorno y keys. NO deben subirse a github por seguridad mantener de manera local.
+git-ssh-secret
+access_keys
+.env
+
+#doc con resumen de pasos de nodeshift. Posee dentro keys que no se deben subir. #usuario y key de ingreso a nodeshift
+PASOS_NODESHIFT.txt
+usuario_ingreso_nodeshift.txt  
+
+#carpetas de resultados; 1) results: resultado de completacion de contexto 2) results_clas: resultado final de asignacion de rubro
+results
+results_clas
+apis
