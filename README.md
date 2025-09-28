@@ -187,5 +187,5 @@ requirements.txt          # Dependencias de Python necesarias
 
  Transferir desde la VM al entorno local:
  ```bash
- scp -P  <puerto_ssh> -i <ruta_a_tu_clave_privada_ssh> -r  root@<ip_de_tu_vm>:<ruta_al_archivo_a_transferir> <ruta_entorno_local_donde_copia_archivo>
+ scp -P  <puerto_ssh> -i <ruta_a_tu_clave_privada_ssh> -r  root@<ip_de_tu_vm>:<ruta_al_archivo_a_transferir> <ruta_entorno_local_donde_copia_archivo> 
  ```
