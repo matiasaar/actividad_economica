@@ -1,10 +1,25 @@
-numpy
-pandas
-sqlalchemy # Solo si realmente lo estás usando, de lo contrario, elimínalo.
-ollama
-langchain
-langchain-community # Importante para las herramientas como DuckDuckGoSearchRun
-chromadb
-pyarrow
-openpyxl
-tqdm # Para las barras de progreso
+# --- Módulos para LLM y APIs ---
+openai                     # Para interactuar con la API de OpenAI
+ollama                     # Para interactuar con el servidor Ollama local/remoto
+langchain                  # Framework principal para orquestar la lógica del LLM
+langchain-community        # Integraciones con servicios de terceros (DuckDuckGo, etc.)
+langchain-core             # Componentes base de Langchain, buena práctica incluirlos
+aiohttp                    # Para las llamadas HTTP asíncronas de alto rendimiento
+requests                   # Para llamadas HTTP síncronas
+
+# --- Módulos para Procesamiento de Datos ---
+pandas                     # Para el manejo de datos en DataFrames
+numpy                      # Para operaciones numéricas eficientes
+openpyxl                   # Para leer y escribir archivos .xlsx con pandas
+pyarrow                    # Motor recomendado para el formato de archivos .parquet
+matplotlib                 # Para la visualización de datos (si la usas)
+sqlalchemy                 # Si tu código original interactúa con bases de datos SQL
+
+# --- Módulos para Utilidades y Herramientas ---
+tqdm                       # Para barras de progreso en bucles
+tqdm[asyncio]              # Extensión de tqdm para bucles asíncronos
+python-dotenv              # Para cargar variables de entorno desde un archivo .env
+boto3                      # Cliente de AWS para interactuar con servicios como S3
+requests-aws4auth          # Para la autenticación con AWS SigV4 (usada para Lambda y S3)
+
+ 

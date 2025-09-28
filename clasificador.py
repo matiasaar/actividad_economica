@@ -11,7 +11,7 @@ from typing import List, Dict, Any, Optional
 # --- Importaciones del proyecto ---
 from llm.prompts import (generar_prompt_clasificacion, generar_prompt2)
 from utils.helpers import (
-    extraer_contenido_entre_llaves, guardar_pickle, load_ruts_from_file, cargar_datos_desde_zip,OnlyAnswer
+    extraer_contenido_entre_llaves, guardar_pickle, load_ruts_from_file, cargar_datos,OnlyAnswer
 )
 from config import (
     OLLAMA_BASE_URL, RESULTS_DIR, CLASSIFICATION_RESULTS_DIR, LLM_MODEL_NAME, LLM_TEMPERATURE,
@@ -54,7 +54,7 @@ async def _async_call_aiohttp(
             async with session.post(url, json=payload, timeout=timeout) as response:
                 response.raise_for_status()
                 data = await response.json()
-                print('DATA',data)
+              #  print('DATA',data)
                 content = data.get("message", {}).get("content", "").strip()
                 return extraer_contenido_entre_llaves(content) or {
                     "error": "Contenido JSON no encontrado",
@@ -124,7 +124,7 @@ async def main() -> None:
     parser = argparse.ArgumentParser(
         description="Clasifica la actividad económica de RUTs a partir de archivos .pkl pre-procesados."
     )
-    parser.add_argument("--input-zip", type=str, required=True, help="Archivo ZIP con los .pkl de entrada.")
+    parser.add_argument("--input-path", type=str, required=True, help="Archivo ZIP o folder con los .pkl de entrada.")
     parser.add_argument("--rut-list", nargs='+', type=str, help="Rutas a archivos con listas de RUTs.")
     parser.add_argument("--output-dir", type=str, default=CLASSIFICATION_RESULTS_DIR, help="Directorio de salida.")
     parser.add_argument("--llm-model", type=str, default=LLM_MODEL_NAME)
@@ -141,7 +141,9 @@ async def main() -> None:
         ruts = sorted(list(set(ruts)))
     logging.info(f"Total RUTs únicos a procesar: {len(ruts)}")
     
-    datos_a_procesar: List[Dict[str, Any]] = cargar_datos_desde_zip(args.input_zip, ruts)
+    
+    #datos_a_procesar: List[Dict[str, Any]] = cargar_datos_desde_zip(args.input_zip, ruts)
+    datos_a_procesar: List[Dict[str, Any]] = cargar_datos(args.input_path, ruts)
 
     if not datos_a_procesar:
         logging.warning("No se encontraron datos para procesar. Finalizando.")

@@ -82,6 +82,38 @@ def load_ruts_from_file(filepath: str) -> List[str]:
         logging.error(f"El archivo de RUTs '{filepath}' no fue encontrado.")
         return []
 
+def cargar_datos(args_input: str, ruts: List[str]) -> List[Dict[str, Any]]:
+    """
+    Carga datos desde un ZIP o un folder según la ruta de entrada.
+    """
+    datos_a_procesar: List[Dict[str, Any]] = []
+
+    if os.path.isfile(args_input) and args_input.lower().endswith(".zip"):
+        # Es un ZIP
+        datos_a_procesar = cargar_datos_desde_zip(args_input, ruts)
+
+    elif os.path.isdir(args_input):
+        # Es un folder
+        datos_a_procesar = cargar_datos_desde_folder(args_input, ruts)
+
+    else:
+        raise ValueError(f"La ruta proporcionada no es un ZIP ni un folder válido: {args_input}")
+
+    return datos_a_procesar
+
+def cargar_datos_desde_folder(folder_path: str, nombres_a_cargar: List[str]) -> List[Dict[str, Any]]:
+    datos: List[Dict[str, Any]] = []
+    for archivo in os.listdir(folder_path):
+        if archivo.endswith(".pkl"):
+            rut = os.path.basename(archivo).removeprefix("salida_rubro_").removesuffix(".pkl").lstrip('0')
+            if rut in nombres_a_cargar:
+                try:
+                    with open(os.path.join(folder_path, archivo), "rb") as f:
+                        datos.append(pickle.load(f))
+                except Exception as e:
+                    logging.warning(f"No se pudo cargar el archivo {archivo}. Error: {e}")
+    return datos
+
 
 def cargar_datos_desde_zip(zip_filepath: str, nombres_a_cargar: List[str]) -> List[Any]:
     """
