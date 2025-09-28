@@ -77,7 +77,7 @@ requirements.txt          # Dependencias de Python necesarias
    - clasificacion.py: realiza la asignacion de un rubro. El rut debe haber pasado por el paso previo (run_comlpetion.py)
         ```bash
         python clasificador.py `
-       --input-zip results`
+       --input-path results`
        --output-dir results_clas `
        --llm-model deepseek-r1:14b `
        --temperature 0.25 `
@@ -88,7 +88,7 @@ requirements.txt          # Dependencias de Python necesarias
         
        - Argumentos de clasificacion.py:
         ```bash
-       --input-zip # . zip que contiene .pkl con el json obtenido en  run_completion.py
+       --input-path # . zip que contiene .pkl con el json obtenido en  run_completion.py
        --output-dir results_clas ` #nombre de la carpeta donde se guardaran los resultados finales
        --llm-model deepseek-r1:14b `  #nombre del modelo. Local 14b y nube 32b 
        --temperature 0.25 `  #temperatura del llm. no elegir algo superior a 0.2
