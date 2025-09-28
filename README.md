@@ -47,6 +47,10 @@ requirements.txt          # Dependencias de Python necesarias
       ollama serve &
       ollama pull deepseek-r1:32b #(si se corre localmente solo instalar la version 14b no la 32b)
       ```
+      NOTA: Es muy importante que cada vez que se modifique las variables de entorno de ollama, el servidor de apague y se vuelva a servir (ollama serve &). Para apagarlo basta correr.
+      ```bash
+     pkill ollama
+     ```
    ###  Ejemplos de uso:
 
    - run_completion.py: realiza la completacion/contextualizacion de documentos.
@@ -152,7 +156,11 @@ requirements.txt          # Dependencias de Python necesarias
     export OLLAMA_NUM_PARALLEL=20  #PARAMETRO IMPORTANTE QUE CONTROLA CUANTAS LLAMADAS EN PARALELO ACEPTA OLLAMA. 
     export OLLAMA_FLASH_ATTENTION=true
     apt update && apt install zip -y 
- 
+
+    curl -fsSL https://ollama.com/install.sh | sh-
+    ollama serve &
+    ollama pull deepseek-r1:32b #(si se corre localmente solo instalar la version 14b no la 32b)
+      
     echo "Iniciando servidor Ollama..."
     nohup ollama serve --n-gpu-layers -1 > /root/ollama.log 2>&1 &
     sleep 30
@@ -164,13 +172,6 @@ requirements.txt          # Dependencias de Python necesarias
     echo "Descargando modelos LLM..."
     ollama pull deepseek-r1:32b
 
-    echo "Instalando dependencias Python..."
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
-
-    echo "Script de inicio completado. Transferir archivos de datos grandes vía SCP/SFTP."
-    sleep infinity
 
 **NOTA:** Los pasos anteriores se pueden ingresar en On start script de Nodeshift o directamente en el PowerShell o CMD de la VM creada en NodeShift.
 
