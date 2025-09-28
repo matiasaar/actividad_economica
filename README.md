@@ -63,15 +63,15 @@ requirements.txt          # Dependencias de Python necesarias
        - Argumentos de run_completion.py:
          ```bash
          --rut-list-path  #path al txt con ruts a preocesar. es un rut por linea
-          --batch-size 200 #batch de ruts a procesar en una iteracion
-          --llm-model deepseek-r1:14b #modelo llm a usar. si se tiene gpu correr deepseek-r1:32b
-          --llm-temperature-toContext  0.25 #temperatura del llm. no elegir algo superior a 0.2
+         --batch-size 200 #batch de ruts a procesar en una iteracion
+         --llm-model deepseek-r1:14b #modelo llm a usar. si se tiene gpu correr deepseek-r1:32b
+         --llm-temperature-toContext  0.25 #temperatura del llm. no elegir algo superior a 0.2
          --max-docs-per-rut 5 #numero maximo de documentos de ventas a considerar por rut
          --inner_workers 5  #numero de llamadas en paralelo intra-rut  (corre en paralelo los textos asociados a un rut)
          --outer_workers  15  #numero de llamadas en paralelo inter-rut (corre en paralelo multiples rut)
          --solo-un-rubro #arg. de tipo store true. si NO se agrega, se consideran todos los rubros de un rut en el SII y boletas, sino, se considera 1 solo
-           --new-bucket-data # arg. de tipo store true. si no se agrega, los documentos de un rut se obtiene del documento textos_etiquetas_NEW_code.txt. Si se agrega, el codigo descarga los datos directamente desde la carpeta asociada al rut en el bucket. 
-           --tipo_muestreo # tipo de muestreo a realizar sobre los documenots. por defecto es "aleatorio".
+         --new-bucket-data # arg. de tipo store true. si no se agrega, los documentos de un rut se obtiene del documento textos_etiquetas_NEW_code.txt. Si se agrega, el codigo descarga los datos directamente desde la carpeta asociada al rut en el bucket. 
+         --tipo_muestreo # tipo de muestreo a realizar sobre los documenots. por defecto es "aleatorio".
          ```
         
    - clasificacion.py: realiza la asignacion de un rubro. El rut debe haber pasado por el paso previo (run_comlpetion.py)
