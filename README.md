@@ -51,7 +51,18 @@ requirements.txt          # Dependencias de Python necesarias
 
    - run_completion.py: realiza la completacion/contextualizacion de documentos.
         ```bash
-        python3 run_completion.py
+        python3 run_completion.py `
+        --rut-list-path "C:\Users\mariola_maxxa\Desktop\Modelo_Actividad_Economica\ruts_prueba.txt" `
+        --batch-size 200 `
+        --llm-model deepseek-r1:14b `
+        --llm-temperature-toContext 0.25 `
+        --max-docs-per-rut 5 `
+        --inner_workers 5 `
+        --outer_workers 15
+
+        ```
+       - Argumentos usados:
+          ```bash
        --rut-list-path  #path al txt con ruts a preocesar. es un rut por linea
         --batch-size 200 #batch de ruts a procesar en una iteracion
        --llm-model deepseek-r1:14b #modelo llm a usar. si se tiene gpu correr deepseek-r1:32b
@@ -59,7 +70,7 @@ requirements.txt          # Dependencias de Python necesarias
        --max-docs-per-rut 5 #numero maximo de documentos de ventas a considerar por rut
        --inner_workers 5  #numero de llamadas en paralelo intra-rut  (corre en paralelo los textos asociados a un rut)
        --outer_workers  15  #numero de llamadas en paralelo inter-rut (corre en paralelo multiples rut)
-        ```  
+           ```
        - otros argumentos posibles de run_completion.py:
           ```bash
            --solo-un-rubro #arg. de tipo store true. si NO se agrega, se consideran todos los rubros de un rut en el SII y boletas, sino, se considera 1 solo
@@ -70,15 +81,26 @@ requirements.txt          # Dependencias de Python necesarias
    - clasificacion.py: realiza la asignacion de un rubro. El rut debe haber pasado por el paso previo (run_comlpetion.py)
 
         ```bash
-        python clasificador.py
-       --input-zip results_2.zip #
-       --output-dir results_clas
-       --llm-model deepseek-r1:32b
-       --temperature 0.25
-        --rut-list lote_ruts_restantes_1.txt
-       --batch-size 15
+        python clasificador.py `
+       --input-zip results_2.zip `
+       --output-dir results_clas `
+       --llm-model deepseek-r1:14b `
+       --temperature 0.25 `
+        --rut-list "C:\Users\mariola_maxxa\Desktop\Modelo_Actividad_Economica\ruts_prueba.txt" `
+       --batch-size 15 `
        --workers 20
-         ```    
+        ```
+       - Argumentos usados:
+        ```bash
+       --input-zip # . zip que contiene .pkl con el json obtenido en  run_completion.py
+       --output-dir results_clas ` #nombre de la carpeta donde se guardaran los resultados finales
+       --llm-model deepseek-r1:14b `  #nombre del modelo. Local 14b y nube 32b 
+       --temperature 0.25 ` 
+        --rut-list "C:\Users\mariola_maxxa\Desktop\Modelo_Actividad_Economica\ruts_prueba.txt" `
+       --batch-size 15 `
+       --workers 20 #numero de llamadas en paralelo a ollama
+        ```
+        
   ## 2.2 Modelo api
    -  Instalar API de OpenAI
        ```bash
