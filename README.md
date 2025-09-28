@@ -122,7 +122,7 @@ requirements.txt          # Dependencias de Python necesarias
      ```     
 --- 
 # 3. Pasos Para Correr en la nube (NodeShift)
-# Generar Claves SSH en Windows con PuTTYgen. Se deben crear 2 claves, una irá para Github y otra para la nube (Nodeshift)
+## Generar Claves SSH en Windows con PuTTYgen. Se deben crear 2 claves, una irá para Github y otra para la nube (Nodeshift)
 1. Abre PuTTYgen. Si no lo tienes, descárgalo e instálalo junto con PuTTY desde [putty.org](https://www.putty.org/).
 2. Genera un nuevo par de claves.
 3. En el menú **Type of key to generate**, selecciona **RSA**.
@@ -134,7 +134,7 @@ requirements.txt          # Dependencias de Python necesarias
 9. Copia tu clave pública: en la ventana de PuTTYgen, el texto que aparece en el cuadro de arriba, que comienza con `ssh-rsa` y termina con tu dirección de correo electrónico, es tu clave pública.
 10. Copia todo ese texto al portapapeles.
 
-## Agregar la Clave Pública a GitHub
+### Agregar la Clave Pública a GitHub
 1. Inicia sesión en GitHub.
 2. Haz clic en tu foto de perfil (esquina superior derecha) y selecciona **Settings**.
 3. En el menú de la izquierda, ve a **SSH and GPG keys**.
