@@ -47,7 +47,7 @@ requirements.txt          # Dependencias de Python necesarias
       ollama serve &
       ollama pull deepseek-r1:32b #(si se corre localmente solo instalar la version 14b no la 32b)
       ```
-      NOTA: Es muy importante que cada vez que se modifique las variables de entorno de ollama, el servidor de apague y se vuelva a servir (ollama serve &). Para apagarlo basta correr.
+      **NOTA:** Es muy importante que cada vez que se modifique las variables de entorno de ollama, el servidor de apague y se vuelva a servir (ollama serve &). Para apagarlo basta correr.
       ```bash
      pkill ollama
      ```
@@ -147,7 +147,7 @@ requirements.txt          # Dependencias de Python necesarias
 6. En el campo **Key**, pega el texto de la clave pública que copiaste de PuTTYgen.
 7. Haz clic en **Add SSH key**.
 
-**NOTA:**En Github se obtendrá un token a partir de lo anterior. Esto es la clave y usuario respectivo que se pedira cuando se clone el repo en la VM de la nube.
+**NOTA:** En Github se obtendrá un token a partir de lo anterior. Esto es la clave y usuario respectivo que se pedira cuando se clone el repo en la VM de la nube.
 
 ### 3. Agregar la otra Clave Pública a Nodeshift (basta agregar en Add new SSH key).
 
