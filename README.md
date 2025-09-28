@@ -143,7 +143,7 @@ requirements.txt          # Dependencias de Python necesarias
     sleep 30
 
     echo "Clonando repositorio de código..."
-    git clone --branch feature/paralelizacion --single-branch https://github.com/matiasaar/LLM_MODEL.git /opt/LLM_MODEL
+    git clone https://github.com/matiasaar/actividad_economica.git /opt/LLM_MODEL
     cd /opt/LLM_MODEL
 
     echo "Descargando modelos LLM..."
