@@ -179,18 +179,18 @@ requirements.txt          # Dependencias de Python necesarias
 
 **NOTA:** Los pasos anteriores se pueden ingresar en On start script de Nodeshift o directamente en el PowerShell o CMD de la VM creada en NodeShift.
 
-  Transferir datos a la VM usando SCP:
+  Transferir datos a la VM usando SCP (se ejecuta de manera local):
    ```bash
     scp -P <puerto_ssh> -i <ruta_a_tu_clave_privada_ssh> <ruta_a_archivo_local> root@<ip_de_tu_vm>:/opt/LLM_MODEL/data_files/
    ```
     
-  Comprimir archivos para enviar desde la VM al entorno local:
+  Comprimir archivos para enviar desde la VM al entorno local (se ejecuta en la nube):
 
   ```bash
     zip -r <ruta_donde_se_crea_el_zip> <ruta_al_archivo_a_transferir> #ej:zip -r /opt/LLM_MODEL/results.zip /opt/LLM_MODEL/results
    ```
 
- Transferir desde la VM al entorno local:
+ Transferir desde la VM al entorno local (se ejecuta de manera local):
  ```bash
  scp -P  <puerto_ssh> -i <ruta_a_tu_clave_privada_ssh> -r  root@<ip_de_tu_vm>:<ruta_al_archivo_a_transferir> <ruta_entorno_local_donde_copia_archivo> 
  ```
