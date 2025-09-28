@@ -77,7 +77,7 @@ requirements.txt          # Dependencias de Python necesarias
    - clasificacion.py: realiza la asignacion de un rubro. El rut debe haber pasado por el paso previo (run_comlpetion.py)
         ```bash
         python clasificador.py `
-       --input-zip results_2.zip `
+       --input-zip results`
        --output-dir results_clas `
        --llm-model deepseek-r1:14b `
        --temperature 0.25 `
