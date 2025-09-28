@@ -129,7 +129,7 @@ requirements.txt          # Dependencias de Python necesarias
 4. En **Number of bits in a generated key**, usa **4096** para una mayor seguridad.
 5. Haz clic en **Generate** y mueve el ratón aleatoriamente sobre la ventana para crear la clave.
 6. Haz clic en **Save private key** para guardar tu clave privada.
-7. Asigna una frase de contraseña (**passphrase**) fuerte cuando se te pida. Esto es crucial.
+7. Asigna una frase de contraseña (**passphrase**) fuerte cuando se te pida.  
 8. Guarda el archivo con una extensión `.ppk` en un lugar seguro (por ejemplo, `C:\Users\TuUsuario\.ssh\`).
 9. Copia tu clave pública: en la ventana de PuTTYgen, el texto que aparece en el cuadro de arriba, que comienza con `ssh-rsa` y termina con tu dirección de correo electrónico, es tu clave pública.
 10. Copia todo ese texto al portapapeles.
@@ -139,10 +139,11 @@ requirements.txt          # Dependencias de Python necesarias
 2. Haz clic en tu foto de perfil (esquina superior derecha) y selecciona **Settings**.
 3. En el menú de la izquierda, ve a **SSH and GPG keys**.
 4. Haz clic en el botón **New SSH key** o **Add SSH key**.
-5. Dale un título descriptivo a tu clave (por ejemplo, "Mi PC de escritorio").
+5. Dale un título descriptivo a tu clave (por ejemplo, "clave modelo act eco").
 6. En el campo **Key**, pega el texto de la clave pública que copiaste de PuTTYgen.
 7. Haz clic en **Add SSH key**.
-   
+
+**NOTA:**En Github se obtendrá un token a partir de lo anterior. Esto es la clave y usuario respectivo que se pedira cuando se clone el repo en la VM de la nube.
   
 ### Despliegue VM NodeShift:
   On start script de NodeShift: 
@@ -171,12 +172,20 @@ requirements.txt          # Dependencias de Python necesarias
     echo "Script de inicio completado. Transferir archivos de datos grandes vía SCP/SFTP."
     sleep infinity
 
-NOTA: Los pasos anteriores se pueden ingresar en On start script de Nodeshift o directamente en el PowerShell o CMD de la VM creada en NodeShift.
+**NOTA:** Los pasos anteriores se pueden ingresar en On start script de Nodeshift o directamente en el PowerShell o CMD de la VM creada en NodeShift.
 
   Transferir datos a la VM usando SCP:
-  
-    ```bash
-    scp -P <puerto_ssh> -i <ruta_a_tu_clave_privada> <ruta_a_archivo_local> root@<ip_de_tu_vm>:/opt/LLM_MODEL/data_files/
-    ```
+   ```bash
+    scp -P <puerto_ssh> -i <ruta_a_tu_clave_privada_ssh> <ruta_a_archivo_local> root@<ip_de_tu_vm>:/opt/LLM_MODEL/data_files/
+   ```
     
-  Transferir datos desde la VM al entorno local usano SCP:
+  Comprimir archivos para enviar desde la VM al entorno local:
+
+  ```bash
+    zip -r <ruta_donde_se_crea_el_zip> <ruta_al_archivo_a_transferir> #ej:zip -r /opt/LLM_MODEL/results.zip /opt/LLM_MODEL/results
+   ```
+
+ Transferir desde la VM al entorno local:
+ ```bash
+ scp -P  <puerto_ssh> -i <ruta_a_tu_clave_privada_ssh> -r  root@<ip_de_tu_vm>:<ruta_al_archivo_a_transferir> <ruta_entorno_local_donde_copia_archivo>
+ ```
