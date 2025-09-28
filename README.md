@@ -122,14 +122,28 @@ requirements.txt          # Dependencias de Python necesarias
      ```     
 --- 
 # 3. Pasos Para Correr en la nube (NodeShift)
+# Generar Claves SSH en Windows con PuTTYgen. Se deben crear 2 claves, una irá para Github y otra para la nube (Nodeshift)
+1. Abre PuTTYgen. Si no lo tienes, descárgalo e instálalo junto con PuTTY desde [putty.org](https://www.putty.org/).
+2. Genera un nuevo par de claves.
+3. En el menú **Type of key to generate**, selecciona **RSA**.
+4. En **Number of bits in a generated key**, usa **4096** para una mayor seguridad.
+5. Haz clic en **Generate** y mueve el ratón aleatoriamente sobre la ventana para crear la clave.
+6. Haz clic en **Save private key** para guardar tu clave privada.
+7. Asigna una frase de contraseña (**passphrase**) fuerte cuando se te pida. Esto es crucial.
+8. Guarda el archivo con una extensión `.ppk` en un lugar seguro (por ejemplo, `C:\Users\TuUsuario\.ssh\`).
+9. Copia tu clave pública: en la ventana de PuTTYgen, el texto que aparece en el cuadro de arriba, que comienza con `ssh-rsa` y termina con tu dirección de correo electrónico, es tu clave pública.
+10. Copia todo ese texto al portapapeles.
 
-- Preparacion_entorno_local:
-  - Python 3.10+ y pip.
-  - Docker Desktop para construir y gestionar imágenes Docker.
-  - Git y Git Bash para gestionar el código y usar comandos SSH.
-  - PuTTYgen para generar claves SSH (ppk y OpenSSH). **Crear dos keys SSH**. Una irá asociada a Github y la otra a la nube (Nodeshift).
-  - Cuentas activas en GitHub y Docker Hub. Luego, se debe subir a Docker Hub la imagen docker creada del proyecto. 
-
+## Agregar la Clave Pública a GitHub
+1. Inicia sesión en GitHub.
+2. Haz clic en tu foto de perfil (esquina superior derecha) y selecciona **Settings**.
+3. En el menú de la izquierda, ve a **SSH and GPG keys**.
+4. Haz clic en el botón **New SSH key** o **Add SSH key**.
+5. Dale un título descriptivo a tu clave (por ejemplo, "Mi PC de escritorio").
+6. En el campo **Key**, pega el texto de la clave pública que copiaste de PuTTYgen.
+7. Haz clic en **Add SSH key**.
+   
+  
 ### Despliegue VM NodeShift:
   On start script de NodeShift: 
 
