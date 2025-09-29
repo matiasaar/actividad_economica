@@ -157,9 +157,9 @@ requirements.txt          # Dependencias de Python necesarias
 ### 3. Se debe crear una cuenta de Docker hub y luego subir la imagen docker.
 
 ### 4. En Nodeshift: 
-        - Agregar la otra Clave Pública a Nodeshift (basta agregar en Add new SSH key).
-        - Seleccionar Custome Image, y en Docker Image utilizar el nombre la imagen docker en Docker Hub (debe incluir la versión de la imagen ej: marriolamaxxa/my-llm-analyzer:main-v1.0)
-        - En Docker Repository Authentification, server=docker.io. Lo demás corresponde a autenticación de cada usuario. 
+   - Agregar la otra Clave Pública a Nodeshift (basta agregar en Add new SSH key).
+   - Seleccionar Custome Image, y en Docker Image utilizar el nombre la imagen docker en Docker Hub (debe incluir la versión de la imagen ej: marriolamaxxa/my-llm-analyzer:main-v1.0)
+   - En Docker Repository Authentification, server=docker.io. Lo demás corresponde a autenticación de cada usuario. 
 
 ### 5. Despliegue VM NodeShift:
   On start script de NodeShift: 
