@@ -3,7 +3,7 @@
 #FROM nvcr.io/nvidia/pytorch:2.2.0-cuda12.1-cudnn8-runtime #hay que logearse para usarla 
 FROM pytorch/pytorch:2.2.0-cuda12.1-cudnn8-runtime
 
-
+#CAMBIOS
 # Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
