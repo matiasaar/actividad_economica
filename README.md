@@ -43,7 +43,7 @@ requirements.txt          # Dependencias de Python necesarias
       ```    
    - Instalar ollama y modelos
       ```bash
-      curl -fsSL https://ollama.com/install.sh | sh-
+      curl -fsSL https://ollama.com/install.sh | sh
       ollama serve &
       ollama pull deepseek-r1:32b #(si se corre localmente solo instalar la version 14b no la 32b)
       ```
@@ -162,7 +162,7 @@ requirements.txt          # Dependencias de Python necesarias
     export OLLAMA_FLASH_ATTENTION=true
     apt update && apt install zip -y 
 
-    curl -fsSL https://ollama.com/install.sh | sh-
+    curl -fsSL https://ollama.com/install.sh | sh
     ollama serve &
     ollama pull deepseek-r1:32b #(si se corre localmente solo instalar la version 14b no la 32b)
       
