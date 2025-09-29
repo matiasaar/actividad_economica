@@ -187,7 +187,7 @@ requirements.txt          # Dependencias de Python necesarias
 
    ```
 
-**NOTA:** Los pasos anteriores se pueden ingresar en On start script de Nodeshift o directamente en el PowerShell o CMD de la VM creada en NodeShift.
+**NOTA:** Los pasos anteriores se pueden ingresar en On start script de Nodeshift o directamente en el PowerShell o CMD de la VM creada en NodeShift. Verificar si el código anterior se implemento bien por medio de cd /opt/LLM_MODEL. Si no, se debe copiar en la CMD y correrlo. 
 
   Transferir datos a la VM usando SCP (se ejecuta de manera local):
    ```bash
