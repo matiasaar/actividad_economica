@@ -50,7 +50,7 @@ requirements.txt          # Dependencias de Python necesarias
       **NOTA:**
         - Es muy importante que cada vez que se modifique las variables de entorno de ollama, el servidor de apague y se vuelva a servir (ollama serve &).
         - En un entorno con GPU, es recomendable que si el modelo no queda completamente cargado en GPU se apague y se prenda nuevamente el servidor. Para verificar que el modelo quede completamente cargado los logs deben cumplir número de layers=offload, ej: layers.model=65 layers.offload=65
-        - Si lo anterior no se cumple se debe modificar OLLAMA_NUM_PARALLEL. Ollama carga automaticamente el modelo según el parámetro anterior. 
+        - Si lo anterior no se cumple se debe modificar OLLAMA_NUM_PARALLEL. Ollama carga automaticamente el modelo según el parámetro anterior. Como base, OLLAMA_NUM_PARALLEL=20 necesita al rededor de 100 V-ram (total, puede ser la suma de varias GPUs menores).  
         - Para apagar el servido ollama basta correr.
       ```bash
      pkill ollama
