@@ -114,7 +114,7 @@ requirements.txt          # Dependencias de Python necesarias
 
    ###  Ejemplo de uso:
    ```bash
-     python api_model.py
+     python api_model.py \
      --rut-list-path  #path al txt con ruts a preocesar. es un rut por linea
    ```
      
