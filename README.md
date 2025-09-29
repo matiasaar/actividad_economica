@@ -165,24 +165,25 @@ requirements.txt          # Dependencias de Python necesarias
   On start script de NodeShift: 
    ```bash
     #!/bin/bash
-    export OLLAMA_NUM_PARALLEL=20  #PARAMETRO IMPORTANTE QUE CONTROLA CUANTAS LLAMADAS EN PARALELO ACEPTA OLLAMA. 
+    set -e
+
+    export OLLAMA_NUM_PARALLEL=20
     export OLLAMA_FLASH_ATTENTION=true
-    apt update && apt install zip -y 
+
+    apt update && apt install -y zip git curl
 
     curl -fsSL https://ollama.com/install.sh | sh
-    ollama serve &
-    ollama pull deepseek-r1:32b #(si se corre localmente solo instalar la version 14b no la 32b)
-      
-    echo "Iniciando servidor Ollama..."
-    nohup ollama serve --n-gpu-layers -1 > /root/ollama.log 2>&1 &
+
+    nohup ollama serve > /root/ollama.log 2>&1 &
     sleep 30
 
-    echo "Clonando repositorio de código..."
+    ollama pull deepseek-r1:32b
+
     git clone https://github.com/matiasaar/actividad_economica.git /opt/LLM_MODEL
     cd /opt/LLM_MODEL
 
-    echo "Descargando modelos LLM..."
-    ollama pull deepseek-r1:32b
+    echo "Entorno listo"
+
    ```
 
 **NOTA:** Los pasos anteriores se pueden ingresar en On start script de Nodeshift o directamente en el PowerShell o CMD de la VM creada en NodeShift.
