@@ -55,14 +55,15 @@ requirements.txt          # Dependencias de Python necesarias
 
    - run_completion.py: realiza la completacion/contextualizacion de documentos.
         ```bash
-        python3 run_completion.py `
-        --rut-list-path "C:\Users\mariola_maxxa\Desktop\Modelo_Actividad_Economica\ruts_prueba.txt" `
-        --batch-size 200 `
-        --llm-model deepseek-r1:14b `
-        --llm-temperature-toContext 0.25 `
-        --max-docs-per-rut 5 `
-        --inner_workers 5 `
+        python3 run_completion.py \
+        --rut-list-path /opt/LLM_MODEL/ruts_prueba.txt \
+        --batch-size 200 \
+        --llm-model deepseek-r1:32b \
+        --llm-temperature-toContext 0.25 \
+        --max-docs-per-rut 5 \
+        --inner_workers 5 \
         --outer_workers 15
+
         ```
        - Argumentos de run_completion.py:
          ```bash
@@ -80,13 +81,13 @@ requirements.txt          # Dependencias de Python necesarias
         
    - clasificacion.py: realiza la asignacion de un rubro. El rut debe haber pasado por el paso previo (run_comlpetion.py)
         ```bash
-        python clasificador.py `
-       --input-path results `
-       --output-dir results_clas `
-       --llm-model deepseek-r1:14b `
-       --temperature 0.25 `
-        --rut-list "C:\Users\mariola_maxxa\Desktop\Modelo_Actividad_Economica\ruts_prueba.txt" `
-       --batch-size 15 `
+        python clasificador.py \
+       --input-path results \
+       --output-dir results_clas \
+       --llm-model deepseek-r1:32b \
+       --temperature 0.25 \
+        --rut-list /opt/LLM_MODEL/ruts_prueba.txt \
+       --batch-size 15 \
        --workers 20
         ```
         
