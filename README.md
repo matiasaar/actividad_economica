@@ -154,13 +154,16 @@ requirements.txt          # Dependencias de Python necesarias
 
 **NOTA:** En Github se obtendrá un token a partir de lo anterior. Esto es la clave y usuario respectivo que se pedira cuando se clone el repo en la VM de la nube.
 
-### 3. Agregar la otra Clave Pública a Nodeshift (basta agregar en Add new SSH key).
+### 3. Se debe crear una cuenta de Docker hub y luego subir la imagen docker.
 
-### 4. Se debe crear una cuenta de Docker hub y luego subir la imagen docker.
+### 4. En Nodeshift: 
+        - Agregar la otra Clave Pública a Nodeshift (basta agregar en Add new SSH key).
+        - Seleccionar Custome Image, y en Docker Image utilizar el nombre la imagen docker en Docker Hub (debe incluir la versión de la imagen ej: marriolamaxxa/my-llm-analyzer:main-v1.0)
+        - En Docker Repository Authentification, server=docker.io. Lo demás corresponde a autenticación de cada usuario. 
 
 ### 5. Despliegue VM NodeShift:
   On start script de NodeShift: 
-
+   ```bash
     #!/bin/bash
     export OLLAMA_NUM_PARALLEL=20  #PARAMETRO IMPORTANTE QUE CONTROLA CUANTAS LLAMADAS EN PARALELO ACEPTA OLLAMA. 
     export OLLAMA_FLASH_ATTENTION=true
@@ -180,7 +183,7 @@ requirements.txt          # Dependencias de Python necesarias
 
     echo "Descargando modelos LLM..."
     ollama pull deepseek-r1:32b
-
+   ```
 
 **NOTA:** Los pasos anteriores se pueden ingresar en On start script de Nodeshift o directamente en el PowerShell o CMD de la VM creada en NodeShift.
 
