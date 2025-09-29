@@ -47,7 +47,11 @@ requirements.txt          # Dependencias de Python necesarias
       ollama serve &
       ollama pull deepseek-r1:32b #(si se corre localmente solo instalar la version 14b no la 32b)
       ```
-      **NOTA:** Es muy importante que cada vez que se modifique las variables de entorno de ollama, el servidor de apague y se vuelva a servir (ollama serve &). Para apagarlo basta correr.
+      **NOTA:**
+        - Es muy importante que cada vez que se modifique las variables de entorno de ollama, el servidor de apague y se vuelva a servir (ollama serve &).
+        - En un entorno con GPU, es recomendable que si el modelo no queda completamente cargado en GPU se apague y se prenda nuevamente el servidor. Para verificar lo anterior los logs deben cumplir nuermo de layers=offloat, ej: layers.model=65 layers.offload=65
+        - Si lo anterior no se cumple se debe modificar OLLAMA_NUM_PARALLEL. Ollama carga automaticamente el modelo según el parámetro anterior. 
+        - Para apagar el servido ollama basta correr.
       ```bash
      pkill ollama
      ```
