@@ -172,7 +172,8 @@ requirements.txt          # Dependencias de Python necesarias
 
     apt update && apt install -y zip git curl
 
-    curl -fsSL https://ollama.com/install.sh | sh
+    
+    #curl -fsSL https://ollama.com/install.sh | sh # se carga en la imagen docker
 
     nohup ollama serve > /root/ollama.log 2>&1 &
     sleep 30
